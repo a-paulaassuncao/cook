@@ -11,6 +11,7 @@ export const styles = StyleSheet.create({
         bottom: 24,
         width: "100%",
         alignSelf: "center",
+        zIndex: 1000,
     },
     header: {
         flexDirection: "row",

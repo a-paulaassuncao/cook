@@ -1,10 +1,11 @@
-import { View, Text, ScrollView, Alert } from "react-native"
+import { router } from "expo-router"
+import { Alert, ScrollView, Text, View } from "react-native"
 
 import { styles } from "@/app/styles"
 
 import Ingredient from "@/components/Ingredient"
-import { useState } from "react"
 import { Selected } from "@/components/Selected"
+import { useState } from "react"
 
 export default function Index() {
   const [selected, setSelected] = useState<string[]>([]);
@@ -25,6 +26,10 @@ export default function Index() {
     ])
   }
 
+  function handleSearch(){
+    router.navigate("/recipes/")
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -43,14 +48,21 @@ export default function Index() {
         {Array.from({ length: 100 }).map((item, index) => (
           <Ingredient
             key={index}
-            name="Tomate"
+            name="Maça"
             image=""
             selected={selected.includes(String(index))}
             onPress={() => handleToggleSelected(String(index))}
           />
         ))}
       </ScrollView>
-      <Selected quantity={selected.length} onClear={handleClearSelected} onSearch={() => {}} />
+
+      {selected.length > 0 && (
+        <Selected 
+          quantity={selected.length} 
+          onClear={handleClearSelected} 
+          onSearch={handleSearch} 
+        />
+      )}
     </View>
   )
 }
